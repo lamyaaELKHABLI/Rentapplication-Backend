@@ -21,5 +21,4 @@ public class apartment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-
 }
