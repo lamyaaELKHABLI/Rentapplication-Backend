@@ -20,7 +20,7 @@ public class RentapplicationApplication {
     @CrossOrigin("http://localhost:4200")
     @GetMapping("/findAllBooks")
     public List<Book> getBooks() {
-        return Stream.of(new Book(101, "Javass" , 999),
+        return Stream.of(new Book(101, "Javas" , 999),
                 new Book(11, "SS" , 9898798),
                 new Book(12, "sdsd" , 10)).collect(Collectors.toList());
     }
