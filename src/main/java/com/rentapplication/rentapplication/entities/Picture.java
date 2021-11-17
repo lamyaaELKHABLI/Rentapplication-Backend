@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Picture {
+public class  Picture {
     private int pictureId;
     private String pictureName;
 
