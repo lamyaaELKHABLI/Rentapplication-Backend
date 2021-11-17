@@ -1,56 +1,99 @@
 package com.rentapplication.rentapplication.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.rentapplication.rentapplication.entities.City;
+import com.rentapplication.rentapplication.entities.LogementCategory;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Table(name = "logement", indexes = {
+        @Index(name = "logement_category_id", columnList = "logement_category_id"),
+        @Index(name = "city_id", columnList = "city_id")
+})
 @Entity
 public class Logement {
-    private int logementId;
-    private String logementAddress;
-    private BigDecimal logementArea;
-    private BigDecimal logementPrice;
-    private byte logementPriceFixed;
-    private byte logementRoomShared;
-    private int logementRoomNumber;
-    private int logementFloor;
-    private int cityId;
-    private int logementCategoryId;
-
     @Id
-    @Column(name = "logement_id")
-    public int getLogementId() {
-        return logementId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "logement_id", nullable = false)
+    private Integer id;
+
+    @Column(name = "logement_address", nullable = false)
+    private String logementAddress;
+
+    @Column(name = "logement_area", nullable = false, precision = 16, scale = 2)
+    private BigDecimal logementArea;
+
+    @Column(name = "logement_price", nullable = false, precision = 16, scale = 2)
+    private BigDecimal logementPrice;
+
+    @Column(name = "logement_price_fixed", nullable = false)
+    private Boolean logementPriceFixed = false;
+
+    @Column(name = "logement_room_shared", nullable = false)
+    private Boolean logementRoomShared = false;
+
+    @Column(name = "logement_room_number", nullable = false)
+    private Integer logementRoomNumber;
+
+    @Column(name = "logement_floor", nullable = false)
+    private Integer logementFloor;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "logement_category_id", nullable = false)
+    private LogementCategory logementCategory;
+
+    public LogementCategory getLogementCategory() {
+        return logementCategory;
     }
 
-    public void setLogementId(int logementId) {
-        this.logementId = logementId;
+    public void setLogementCategory(LogementCategory logementCategory) {
+        this.logementCategory = logementCategory;
     }
 
-    @Basic
-    @Column(name = "logement_address")
-    public String getLogementAddress() {
-        return logementAddress;
+    public City getCity() {
+        return city;
     }
 
-    public void setLogementAddress(String logementAddress) {
-        this.logementAddress = logementAddress;
+    public void setCity(City city) {
+        this.city = city;
     }
 
-    @Basic
-    @Column(name = "logement_area")
-    public BigDecimal getLogementArea() {
-        return logementArea;
+    public Integer getLogementFloor() {
+        return logementFloor;
     }
 
-    public void setLogementArea(BigDecimal logementArea) {
-        this.logementArea = logementArea;
+    public void setLogementFloor(Integer logementFloor) {
+        this.logementFloor = logementFloor;
     }
 
-    @Basic
-    @Column(name = "logement_price")
+    public Integer getLogementRoomNumber() {
+        return logementRoomNumber;
+    }
+
+    public void setLogementRoomNumber(Integer logementRoomNumber) {
+        this.logementRoomNumber = logementRoomNumber;
+    }
+
+    public Boolean getLogementRoomShared() {
+        return logementRoomShared;
+    }
+
+    public void setLogementRoomShared(Boolean logementRoomShared) {
+        this.logementRoomShared = logementRoomShared;
+    }
+
+    public Boolean getLogementPriceFixed() {
+        return logementPriceFixed;
+    }
+
+    public void setLogementPriceFixed(Boolean logementPriceFixed) {
+        this.logementPriceFixed = logementPriceFixed;
+    }
+
     public BigDecimal getLogementPrice() {
         return logementPrice;
     }
@@ -59,102 +102,27 @@ public class Logement {
         this.logementPrice = logementPrice;
     }
 
-    @Basic
-    @Column(name = "logement_price_fixed")
-    public byte getLogementPriceFixed() {
-        return logementPriceFixed;
+    public BigDecimal getLogementArea() {
+        return logementArea;
     }
 
-    public void setLogementPriceFixed(byte logementPriceFixed) {
-        this.logementPriceFixed = logementPriceFixed;
+    public void setLogementArea(BigDecimal logementArea) {
+        this.logementArea = logementArea;
     }
 
-    @Basic
-    @Column(name = "logement_room_shared")
-    public byte getLogementRoomShared() {
-        return logementRoomShared;
+    public String getLogementAddress() {
+        return logementAddress;
     }
 
-    public void setLogementRoomShared(byte logementRoomShared) {
-        this.logementRoomShared = logementRoomShared;
+    public void setLogementAddress(String logementAddress) {
+        this.logementAddress = logementAddress;
     }
 
-    @Basic
-    @Column(name = "logement_room_number")
-    public int getLogementRoomNumber() {
-        return logementRoomNumber;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLogementRoomNumber(int logementRoomNumber) {
-        this.logementRoomNumber = logementRoomNumber;
-    }
-
-    @Basic
-    @Column(name = "logement_floor")
-    public int getLogementFloor() {
-        return logementFloor;
-    }
-
-    public void setLogementFloor(int logementFloor) {
-        this.logementFloor = logementFloor;
-    }
-
-    @Basic
-    @Column(name = "city_id")
-    public int getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }
-
-    @Basic
-    @Column(name = "logement_category_id")
-    public int getLogementCategoryId() {
-        return logementCategoryId;
-    }
-
-    public void setLogementCategoryId(int logementCategoryId) {
-        this.logementCategoryId = logementCategoryId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Logement logement = (Logement) o;
-
-        if (logementId != logement.logementId) return false;
-        if (logementPriceFixed != logement.logementPriceFixed) return false;
-        if (logementRoomShared != logement.logementRoomShared) return false;
-        if (logementRoomNumber != logement.logementRoomNumber) return false;
-        if (logementFloor != logement.logementFloor) return false;
-        if (cityId != logement.cityId) return false;
-        if (logementCategoryId != logement.logementCategoryId) return false;
-        if (logementAddress != null ? !logementAddress.equals(logement.logementAddress) : logement.logementAddress != null)
-            return false;
-        if (logementArea != null ? !logementArea.equals(logement.logementArea) : logement.logementArea != null)
-            return false;
-        if (logementPrice != null ? !logementPrice.equals(logement.logementPrice) : logement.logementPrice != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = logementId;
-        result = 31 * result + (logementAddress != null ? logementAddress.hashCode() : 0);
-        result = 31 * result + (logementArea != null ? logementArea.hashCode() : 0);
-        result = 31 * result + (logementPrice != null ? logementPrice.hashCode() : 0);
-        result = 31 * result + (int) logementPriceFixed;
-        result = 31 * result + (int) logementRoomShared;
-        result = 31 * result + logementRoomNumber;
-        result = 31 * result + logementFloor;
-        result = 31 * result + cityId;
-        result = 31 * result + logementCategoryId;
-        return result;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

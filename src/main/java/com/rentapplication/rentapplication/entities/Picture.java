@@ -1,6 +1,4 @@
-package com.rentapplication.rentapplication;
-
-import com.rentapplication.rentapplication.entities.Logement;
+package com.rentapplication.rentapplication.entities;
 
 import javax.persistence.*;
 
