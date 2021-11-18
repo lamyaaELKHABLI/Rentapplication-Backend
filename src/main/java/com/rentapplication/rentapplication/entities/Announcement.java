@@ -1,5 +1,9 @@
 package com.rentapplication.rentapplication.entities;
 
+import com.rentapplication.rentapplication.entities.Logement;
+import com.rentapplication.rentapplication.entities.User;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -9,6 +13,7 @@ import java.time.Instant;
 })
 @Entity
 public class Announcement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "announcement_id", nullable = false)
@@ -20,20 +25,23 @@ public class Announcement {
     @Column(name = "announcement_description", nullable = false)
     private String announcementDescription;
 
-    @Column(name = "announcement_created_at", nullable = false)
-    private Instant announcementCreatedAt;
+    @CreationTimestamp
+    @Column(name = "announcement_created_at")
+    private Instant announcementCreatedAt ;
 
-    @Column(name = "announcement_deleted", nullable = false)
+    @Column(name = "announcement_deleted")
     private Boolean announcementDeleted = false;
 
-    @Column(name = "announcement_status", nullable = false)
-    private Boolean announcementStatus = false;
+    @Column(name = "announcement_status")
+    private Boolean announcementStatus = true;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "logement_id", nullable = false)
     private Logement logement;
 
@@ -100,4 +108,5 @@ public class Announcement {
     public void setId(Integer id) {
         this.id = id;
     }
+
 }
