@@ -1,8 +1,5 @@
 package com.rentapplication.rentapplication.entities;
 
-import com.rentapplication.rentapplication.entities.City;
-import com.rentapplication.rentapplication.entities.LogementCategory;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
