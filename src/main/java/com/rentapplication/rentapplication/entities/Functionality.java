@@ -1,9 +1,6 @@
 package com.rentapplication.rentapplication.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Functionality {
@@ -11,6 +8,7 @@ public class Functionality {
     private String functionalityTitle;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "functionality_id")
     public int getFunctionalityId() {
         return functionalityId;
@@ -30,24 +28,6 @@ public class Functionality {
         this.functionalityTitle = functionalityTitle;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Functionality that = (Functionality) o;
 
-        if (functionalityId != that.functionalityId) return false;
-        if (functionalityTitle != null ? !functionalityTitle.equals(that.functionalityTitle) : that.functionalityTitle != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = functionalityId;
-        result = 31 * result + (functionalityTitle != null ? functionalityTitle.hashCode() : 0);
-        return result;
-    }
 }
