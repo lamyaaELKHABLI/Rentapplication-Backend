@@ -1,44 +1,82 @@
 package com.rentapplication.rentapplication.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.sql.Timestamp;
+import javax.persistence.*;
+import java.time.Instant;
 
+@Table(name = "announcement", indexes = {
+        @Index(name = "user_id", columnList = "user_id"),
+        @Index(name = "logement_id", columnList = "logement_id")
+})
 @Entity
 public class Announcement {
-    private int announcementId;
-    private String announcementTitle;
-    private String announcementDescription;
-    private Timestamp announcementCreatedAt;
-    private byte announcementDeleted;
-    private byte announcementStatus;
-    private int userId;
-    private int logementId;
-
     @Id
-    @Column(name = "announcement_id")
-    public int getAnnouncementId() {
-        return announcementId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "announcement_id", nullable = false)
+    private Integer id;
+
+    @Column(name = "announcement_title", nullable = false)
+    private String announcementTitle;
+
+    @Column(name = "announcement_description", nullable = false)
+    private String announcementDescription;
+
+    @Column(name = "announcement_created_at", nullable = false)
+    private Instant announcementCreatedAt;
+
+    @Column(name = "announcement_deleted", nullable = false)
+    private Boolean announcementDeleted = false;
+
+    @Column(name = "announcement_status", nullable = false)
+    private Boolean announcementStatus = false;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "logement_id", nullable = false)
+    private Logement logement;
+
+    public Logement getLogement() {
+        return logement;
     }
 
-    public void setAnnouncementId(int announcementId) {
-        this.announcementId = announcementId;
+    public void setLogement(Logement logement) {
+        this.logement = logement;
     }
 
-    @Basic
-    @Column(name = "announcement_title")
-    public String getAnnouncementTitle() {
-        return announcementTitle;
+    public User getUser() {
+        return user;
     }
 
-    public void setAnnouncementTitle(String announcementTitle) {
-        this.announcementTitle = announcementTitle;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    @Basic
-    @Column(name = "announcement_description")
+    public Boolean getAnnouncementStatus() {
+        return announcementStatus;
+    }
+
+    public void setAnnouncementStatus(Boolean announcementStatus) {
+        this.announcementStatus = announcementStatus;
+    }
+
+    public Boolean getAnnouncementDeleted() {
+        return announcementDeleted;
+    }
+
+    public void setAnnouncementDeleted(Boolean announcementDeleted) {
+        this.announcementDeleted = announcementDeleted;
+    }
+
+    public Instant getAnnouncementCreatedAt() {
+        return announcementCreatedAt;
+    }
+
+    public void setAnnouncementCreatedAt(Instant announcementCreatedAt) {
+        this.announcementCreatedAt = announcementCreatedAt;
+    }
+
     public String getAnnouncementDescription() {
         return announcementDescription;
     }
@@ -47,88 +85,19 @@ public class Announcement {
         this.announcementDescription = announcementDescription;
     }
 
-    @Basic
-    @Column(name = "announcement_created_at")
-    public Timestamp getAnnouncementCreatedAt() {
-        return announcementCreatedAt;
+    public String getAnnouncementTitle() {
+        return announcementTitle;
     }
 
-    public void setAnnouncementCreatedAt(Timestamp announcementCreatedAt) {
-        this.announcementCreatedAt = announcementCreatedAt;
+    public void setAnnouncementTitle(String announcementTitle) {
+        this.announcementTitle = announcementTitle;
     }
 
-    @Basic
-    @Column(name = "announcement_deleted")
-    public byte getAnnouncementDeleted() {
-        return announcementDeleted;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAnnouncementDeleted(byte announcementDeleted) {
-        this.announcementDeleted = announcementDeleted;
-    }
-
-    @Basic
-    @Column(name = "announcement_status")
-    public byte getAnnouncementStatus() {
-        return announcementStatus;
-    }
-
-    public void setAnnouncementStatus(byte announcementStatus) {
-        this.announcementStatus = announcementStatus;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "logement_id")
-    public int getLogementId() {
-        return logementId;
-    }
-
-    public void setLogementId(int logementId) {
-        this.logementId = logementId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Announcement that = (Announcement) o;
-
-        if (announcementId != that.announcementId) return false;
-        if (announcementDeleted != that.announcementDeleted) return false;
-        if (announcementStatus != that.announcementStatus) return false;
-        if (userId != that.userId) return false;
-        if (logementId != that.logementId) return false;
-        if (announcementTitle != null ? !announcementTitle.equals(that.announcementTitle) : that.announcementTitle != null)
-            return false;
-        if (announcementDescription != null ? !announcementDescription.equals(that.announcementDescription) : that.announcementDescription != null)
-            return false;
-        if (announcementCreatedAt != null ? !announcementCreatedAt.equals(that.announcementCreatedAt) : that.announcementCreatedAt != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = announcementId;
-        result = 31 * result + (announcementTitle != null ? announcementTitle.hashCode() : 0);
-        result = 31 * result + (announcementDescription != null ? announcementDescription.hashCode() : 0);
-        result = 31 * result + (announcementCreatedAt != null ? announcementCreatedAt.hashCode() : 0);
-        result = 31 * result + (int) announcementDeleted;
-        result = 31 * result + (int) announcementStatus;
-        result = 31 * result + userId;
-        result = 31 * result + logementId;
-        return result;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
