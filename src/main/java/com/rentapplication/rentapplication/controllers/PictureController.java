@@ -4,13 +4,17 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.rentapplication.rentapplication.entities.Logement;
 import com.rentapplication.rentapplication.entities.Picture;
 import com.rentapplication.rentapplication.repositories.LogementRepository;
-import com.rentapplication.rentapplication.repositoryL.PictureRepository;
+import com.rentapplication.rentapplication.repositories.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -61,4 +65,19 @@ public class PictureController {
         picture.setPictureName(newFileName);
         return picturerepository.save(picture);
     }
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping(path="/pictures/{id}")
+    public List<Picture> getPhotos(@PathVariable("id") Integer id) throws Exception{
+        return picturerepository.findByLogementId(id);
+        //return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+picture.getPictureFilename()));
+    }
+    
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping(path="/picture/{id}")
+    public byte[] getPhoto(@PathVariable("id") Integer id) throws Exception{
+        Picture picture = picturerepository.findById(id).orElse(null);
+        return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+picture.getPictureFilename()));
+    }
+
 }
