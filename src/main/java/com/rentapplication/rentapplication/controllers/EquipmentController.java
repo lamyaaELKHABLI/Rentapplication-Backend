@@ -1,10 +1,8 @@
 package com.rentapplication.rentapplication.controllers;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.rentapplication.rentapplication.entities.Equipment;
-import com.rentapplication.rentapplication.entities.EquipmentLogement;
-import com.rentapplication.rentapplication.entities.Logement;
-import com.rentapplication.rentapplication.entities.Picture;
+import com.rentapplication.rentapplication.entities.*;
+import com.rentapplication.rentapplication.repositories.EquipmentLogementRepository;
 import com.rentapplication.rentapplication.repositoryL.EquipmentRepository;
 import com.rentapplication.rentapplication.repositories.LogementCategoryRepository;
 import com.rentapplication.rentapplication.repositories.LogementRepository;
@@ -25,7 +23,7 @@ public class EquipmentController {
     private LogementRepository logementrepository;
 
     @Autowired(required = true)
-    private LogementCategoryRepository logementcategoryrepository;
+    private EquipmentLogementRepository equipmentlogementrepository;
 
     @CrossOrigin("http://localhost:4200")
     @GetMapping("/equipments")
@@ -33,16 +31,16 @@ public class EquipmentController {
         return equipmentrepository.findAll();
     }
 
-   /* @CrossOrigin("http://localhost:4200")
+    @CrossOrigin("http://localhost:4200")
     @PostMapping(value = "/savelogementequipment")
-    public LogementCategoryRepository SaveLogementEquipment (@RequestParam("equipment_id") Integer equipment_id,
-                                @RequestParam("logement_id") Integer logement_id
+    public EquipmentLogement SaveLogementEquipment (@RequestParam("equipment_id") Integer equipment_id,
+                                                   @RequestParam("logement_id") Integer logement_id
     ) throws JsonParseException, JsonMappingException, Exception{
         Logement newlogement = logementrepository.findById(logement_id).orElse(null);
         Equipment newequipment = equipmentrepository.findById(equipment_id).orElse(null);
         EquipmentLogement equipmentlogement = new EquipmentLogement();
         equipmentlogement.setEquipment(newequipment);
         equipmentlogement.setLogement(newlogement);
-    return logementcategoryrepository.save(equipmentlogement);
-    }*/
+    return equipmentlogementrepository.save(equipmentlogement);
+    }
 }
