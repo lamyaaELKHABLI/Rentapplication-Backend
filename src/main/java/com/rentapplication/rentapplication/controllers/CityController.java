@@ -13,13 +13,12 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api")
 public class CityController {
 
     @Autowired
     CityRepository cityRepository;
 
-    @GetMapping("/getCities")
+    @GetMapping("/api/getCities")
     public ResponseEntity<?> getCities() {
 
         List<String> cities = cityRepository.findAll().stream()
