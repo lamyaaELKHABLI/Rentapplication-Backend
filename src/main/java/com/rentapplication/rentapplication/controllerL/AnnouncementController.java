@@ -32,11 +32,12 @@ public class AnnouncementController {
 
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/announcement")
-    public Announcement createAnnouncement(@RequestBody Announcement announcement){
+    public Integer createAnnouncement(@RequestBody Announcement announcement){
         User user = userrepository.findById(1).orElse(null);
         Logement newlogement = logementrepository.save(announcement.getLogement());
         announcement.setLogement(newlogement);
         announcement.setUser(user);
-        return announcementrepository.save(announcement);
+        Announcement newannouncement = announcementrepository.save(announcement);
+        return newlogement.getId();
     }
 }
