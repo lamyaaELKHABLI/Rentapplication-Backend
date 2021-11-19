@@ -7,15 +7,11 @@ import javax.persistence.*;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< Updated upstream
     @Column(name = "city_id", nullable = false)
     private Integer id;
-=======
-    @Column(name = "city_id")
     public int getCityId() {
-        return cityId;
+        return id;
     }
->>>>>>> Stashed changes
 
     @Column(name = "city_title", nullable = false)
     private String cityTitle;

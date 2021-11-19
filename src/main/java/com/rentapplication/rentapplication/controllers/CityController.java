@@ -28,4 +28,9 @@ public class CityController {
         return ResponseEntity.ok(cities);
 
     }
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/cities")
+    public List<City> getAllcities(){
+        return cityRepository.findAll();
+    }
 }

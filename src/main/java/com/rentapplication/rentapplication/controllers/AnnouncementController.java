@@ -1,11 +1,11 @@
-package com.rentapplication.rentapplication.controllerL;
+package com.rentapplication.rentapplication.controllers;
 
 import com.rentapplication.rentapplication.entities.Announcement;
 import com.rentapplication.rentapplication.entities.Logement;
 import com.rentapplication.rentapplication.entities.User;
-import com.rentapplication.rentapplication.repositoryL.AnnouncementRepository;
-import com.rentapplication.rentapplication.repositoryL.LogementRepository;
-import com.rentapplication.rentapplication.repositoryL.UserRepository;
+import com.rentapplication.rentapplication.repositories.AnnouncementRepository;
+import com.rentapplication.rentapplication.repositories.LogementRepository;
+import com.rentapplication.rentapplication.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +33,8 @@ public class AnnouncementController {
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/announcement")
     public Announcement createAnnouncement(@RequestBody Announcement announcement){
-        User user = userrepository.findById(1).orElse(null);
+
+        User user = userrepository.findByUsername("mer8").orElse(null);
         Logement newlogement = logementrepository.save(announcement.getLogement());
         announcement.setLogement(newlogement);
         announcement.setUser(user);

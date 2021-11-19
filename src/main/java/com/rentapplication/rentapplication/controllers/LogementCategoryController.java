@@ -1,7 +1,7 @@
-package com.rentapplication.rentapplication.controllerL;
+package com.rentapplication.rentapplication.controllers;
 
 import com.rentapplication.rentapplication.entities.LogementCategory;
-import com.rentapplication.rentapplication.repositoryL.LogementCategoryRepository;
+import com.rentapplication.rentapplication.repositories.LogementCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
