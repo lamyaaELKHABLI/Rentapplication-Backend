@@ -1,4 +1,4 @@
-package com.rentapplication.rentapplication.controllerL;
+package com.rentapplication.rentapplication.controllers;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.rentapplication.rentapplication.entities.Equipment;
@@ -6,8 +6,8 @@ import com.rentapplication.rentapplication.entities.EquipmentLogement;
 import com.rentapplication.rentapplication.entities.Logement;
 import com.rentapplication.rentapplication.entities.Picture;
 import com.rentapplication.rentapplication.repositoryL.EquipmentRepository;
-import com.rentapplication.rentapplication.repositoryL.LogementCategoryRepository;
-import com.rentapplication.rentapplication.repositoryL.LogementRepository;
+import com.rentapplication.rentapplication.repositories.LogementCategoryRepository;
+import com.rentapplication.rentapplication.repositories.LogementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.web.bind.annotation.*;

@@ -32,7 +32,7 @@ public class AnnouncementController {
 
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/announcement")
-    public Announcement createAnnouncement(@RequestBody Announcement announcement){
+    public Integer createAnnouncement(@RequestBody Announcement announcement){
 
         User user = userrepository.findByUsername("mer8").orElse(null);
         Logement newlogement = logementrepository.save(announcement.getLogement());
