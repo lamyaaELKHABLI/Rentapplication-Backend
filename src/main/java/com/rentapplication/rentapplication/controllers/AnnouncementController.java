@@ -38,6 +38,7 @@ public class AnnouncementController {
         Logement newlogement = logementrepository.save(announcement.getLogement());
         announcement.setLogement(newlogement);
         announcement.setUser(user);
-        return announcementrepository.save(announcement);
+        Announcement newannouncement = announcementrepository.save(announcement);
+        return newlogement.getId();
     }
 }

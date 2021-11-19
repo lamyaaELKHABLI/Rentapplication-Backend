@@ -1,5 +1,7 @@
 package com.rentapplication.rentapplication.entities;
 
+import com.rentapplication.rentapplication.entities.Logement;
+
 import javax.persistence.*;
 
 @Table(name = "picture", indexes = {
@@ -8,6 +10,7 @@ import javax.persistence.*;
 @Entity
 public class Picture {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "picture_id", nullable = false)
     private Integer id;
 
@@ -17,10 +20,10 @@ public class Picture {
     @Column(name = "picture_filename", nullable = false)
     private String pictureFilename;
 
-    @Column(name = "picture_status", nullable = false)
-    private Boolean pictureStatus = false;
+    @Column(name = "picture_status")
+    private Boolean pictureStatus = true;
 
-    @Column(name = "picture_deleted", nullable = false)
+    @Column(name = "picture_deleted")
     private Boolean pictureDeleted = false;
 
     @ManyToOne(optional = false)
