@@ -42,7 +42,7 @@ public class AnnouncementController {
     @PostMapping("/announcement")
     public Integer createAnnouncement(@RequestBody Announcement announcement){
 
-        User user = userrepository.findByUsername("mer8").orElse(null);
+        User user = userrepository.findByUsername(announcement.getUser().getUsername()).orElse(null);
         Logement newlogement = logementrepository.save(announcement.getLogement());
         announcement.setLogement(newlogement);
         announcement.setUser(user);
