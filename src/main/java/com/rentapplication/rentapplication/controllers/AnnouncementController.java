@@ -34,8 +34,8 @@ public class AnnouncementController {
 
     @CrossOrigin("http://localhost:4200")
     @GetMapping("/announcements/{id}")
-    public Optional<Announcement> getAllLogementbyID(@PathVariable Integer id){
-        return announcementrepository.findById(id);
+    public Announcement getAllLogementbyID(@PathVariable Integer id){
+        return announcementrepository.findById(id).orElse(null);
     }
 
     @CrossOrigin("http://localhost:4200")
