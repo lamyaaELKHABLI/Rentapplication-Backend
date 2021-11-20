@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -25,9 +26,16 @@ public class AnnouncementController {
     private UserRepository userrepository;
 
     @CrossOrigin("http://localhost:4200")
-    @GetMapping("/announcements")
+   @GetMapping("/announcements")
+
     public List<Announcement> getAllLogement(){
-        return announcementrepository.findAll();
+       return announcementrepository.findAll();
+    }
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/announcements/{id}")
+    public Optional<Announcement> getAllLogementbyID(@PathVariable Integer id){
+        return announcementrepository.findById(id);
     }
 
     @CrossOrigin("http://localhost:4200")
@@ -42,3 +50,4 @@ public class AnnouncementController {
         return newlogement.getId();
     }
 }
+
