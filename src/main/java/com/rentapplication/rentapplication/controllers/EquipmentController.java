@@ -43,4 +43,10 @@ public class EquipmentController {
         equipmentlogement.setLogement(newlogement);
     return equipmentlogementrepository.save(equipmentlogement);
     }
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping(path="/equipments/{id}")
+    public List<EquipmentLogement> getEquipements(@PathVariable("id") Integer id) throws Exception{
+        return equipmentlogementrepository.findByLogementId(id);
+    }
 }
