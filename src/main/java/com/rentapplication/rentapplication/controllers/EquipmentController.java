@@ -45,6 +45,12 @@ public class EquipmentController {
     }
 
     @CrossOrigin("http://localhost:4200")
+    @GetMapping(path="/equipments/details/{id}")
+    public Equipment getAllEquipementbyID(@PathVariable Integer id){
+        return equipmentrepository.findById(id).orElse(null);
+    }
+
+    @CrossOrigin("http://localhost:4200")
     @GetMapping(path="/equipments/{id}")
     public List<EquipmentLogement> getEquipements(@PathVariable("id") Integer id) throws Exception{
         return equipmentlogementrepository.findByLogementId(id);
