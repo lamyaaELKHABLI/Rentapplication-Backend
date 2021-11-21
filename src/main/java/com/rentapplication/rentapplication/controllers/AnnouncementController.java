@@ -38,8 +38,42 @@ public class AnnouncementController {
         return announcementrepository.findById(id).orElse(null);
     }
 
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/announcementsClient/{id}")
+    public List<Announcement> getAllLogementClient(int id){
+        User user = userrepository.findById(id).orElse(null);
+        return announcementrepository.findAnnouncementsByUser(user);
+    }
 
+    @CrossOrigin("http://localhost:4200")
+    @PostMapping("/modifyAnnouncement/{id}")
+    public Announcement modifyAnnouncement(@RequestBody Announcement announcement, @PathVariable("id") Integer id){
+        Announcement newannouncement = announcementrepository.findById(id).orElse(null);
+        newannouncement.setAnnouncementTitle(announcement.getAnnouncementTitle());
+        newannouncement.setAnnouncementDescription(announcement.getAnnouncementDescription());
+        announcementrepository.save(newannouncement);
+        return newannouncement;
+    }
 
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/deleteAnnouncement/{id}")
+    public String deleteAnnouncement(int id){
+        announcementrepository.deleteById(id);
+        return "Announcement deleted !";
+    }
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/detailsAnnouncement/{id}")
+    public Announcement detailsAnnouncement(int id){
+        return announcementrepository.findById(id).orElse(null);
+    }
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/getNbrAnn/{id}")
+    public int getNbrAnn(int id){
+        User user = userrepository.findById(id).orElse(null);
+        List<Announcement> ann = announcementrepository.findAnnouncementsByUser(user);
+        return ann.size();
+    }
 
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/announcement")
@@ -51,6 +85,19 @@ public class AnnouncementController {
         announcement.setUser(user);
         Announcement newannouncement = announcementrepository.save(announcement);
         return newlogement.getId();
+    }
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/modifyStatus/{id}")
+    public Announcement modifyStatus(int id){
+        Announcement anon = announcementrepository.findById(id).orElse(null);
+        if(anon.getAnnouncementStatus() == true) {
+            anon.setAnnouncementStatus(false);
+        }
+        else {
+            anon.setAnnouncementStatus(true);
+        }
+        return announcementrepository.save(anon);
     }
 }
 

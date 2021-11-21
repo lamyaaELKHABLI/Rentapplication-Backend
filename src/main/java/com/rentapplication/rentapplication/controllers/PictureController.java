@@ -80,4 +80,42 @@ public class PictureController {
         return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+picture.getPictureFilename()));
     }
 
+
+    @CrossOrigin("http://localhost:4200")
+    @PostMapping(value = "/modifypictures")
+    public Picture modifyPicture (@RequestParam("file") MultipartFile file,
+                                  @RequestParam("logement_id") Integer logement_id
+    ) throws JsonParseException, JsonMappingException, Exception
+    {
+        picturerepository.deleteAllByLogementId(logement_id);
+        boolean isExit = new File(context.getRealPath("/Images/")).exists();
+        if (!isExit)
+        {
+            new File (context.getRealPath("/Images/")).mkdir();
+            System.out.println("mk dir.............");
+        }
+        String filename = file.getOriginalFilename();
+        String newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
+        String newFileSaved = UUID.randomUUID().toString()+"."+FilenameUtils.getExtension(filename);
+        File serverFile = new File (context.getRealPath("/Images/"+File.separator+newFileSaved));
+        try
+        {
+            System.out.println("Image");
+            FileUtils.writeByteArrayToFile(serverFile,file.getBytes());
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(logement_id);
+
+        Logement newlogement = logementrepository.findById(logement_id).orElse(null);
+        Picture picture = new Picture();
+        picture.setLogement(newlogement);
+        picture.setPictureFilename(newFileSaved);
+        picture.setPictureName(newFileName);
+        return picturerepository.save(picture);
+    }
+
+
 }

@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface PictureRepository extends JpaRepository<Picture, Integer> {
     List<Picture> findByLogementId(Integer logement_id);
+    void deleteAllByLogementId(Integer logement_id);
 }

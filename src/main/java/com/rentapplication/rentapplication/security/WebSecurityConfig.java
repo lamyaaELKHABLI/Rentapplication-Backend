@@ -87,6 +87,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/equipments/**").permitAll()
                 .antMatchers("/equipments/details/**").permitAll()
                 .antMatchers("/flatemmates/**").permitAll()
+                .antMatchers("/announcements/{id}").permitAll()
+                .antMatchers("/deleteAnnouncement/{id}").permitAll()
+                .antMatchers("/detailsAnnouncement/{id}").permitAll()
+                .antMatchers("/equipmentsLog/{id}").permitAll()
+
+                .antMatchers("/modifyAnnouncement/**").permitAll()
+                .antMatchers("/modifylogementequipment").permitAll()
+                .antMatchers("/modifypictures").permitAll()
+                .antMatchers("/announcementsClient/{id}").permitAll()
+                .antMatchers("/getNbrAnn/{id}").permitAll()
+                .antMatchers("/getNbrRented/{id}").permitAll()
+                .antMatchers("/getNbrNotRented/{id}").permitAll()
+                .antMatchers("/modifyStatus/{id}").permitAll()
+                .antMatchers("/logements").permitAll()
 
 
 

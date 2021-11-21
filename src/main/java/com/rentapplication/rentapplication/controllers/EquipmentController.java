@@ -55,4 +55,25 @@ public class EquipmentController {
     public List<EquipmentLogement> getEquipements(@PathVariable("id") Integer id) throws Exception{
         return equipmentlogementrepository.findByLogementId(id);
     }
+
+    @PostMapping(value = "/modifylogementequipment")
+    public EquipmentLogement ModifyLogementEquipment (@RequestParam("equipment_id") Integer equipment_id,
+                                                      @RequestParam("logement_id") Integer logement_id
+    ) throws JsonParseException, JsonMappingException, Exception{
+        equipmentlogementrepository.deleteAllByLogementId(logement_id);
+        Logement newlogement = logementrepository.findById(logement_id).orElse(null);
+        Equipment newequipment = equipmentrepository.findById(equipment_id).orElse(null);
+        EquipmentLogement equipmentlogement = new EquipmentLogement();
+        equipmentlogement.setEquipment(newequipment);
+        equipmentlogement.setLogement(newlogement);
+        return equipmentlogementrepository.save(equipmentlogement);
+    }
+
+    @CrossOrigin("http://localhost:4200")
+    @GetMapping("/equipmentsLog/{id}")
+    public List<EquipmentLogement> getAllEquipmentsLog(int id){
+
+        return equipmentlogementrepository.findByLogementId(id);
+    }
+
 }

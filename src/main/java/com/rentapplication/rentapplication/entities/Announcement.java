@@ -35,13 +35,13 @@ public class Announcement {
     @Column(name = "announcement_status")
     private Boolean announcementStatus = true;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @Access(AccessType.FIELD)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @Access(AccessType.FIELD)
+    @ManyToOne
     @JoinColumn(name = "logement_id", nullable = false)
     private Logement logement;
 
